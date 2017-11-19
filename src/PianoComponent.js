@@ -25,6 +25,7 @@ class PianoComponent extends React.Component {
     this.mix = this.mix.bind(this);
     this.key_status = this.key_status.bind(this);
 
+    //TODO: Make params configurable through `this.props`
     this.key_attack_time = 9.0;
     this.key_max_rotation =  0.72;
     this.octave = 2;
