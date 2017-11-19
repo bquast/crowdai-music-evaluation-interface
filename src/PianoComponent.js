@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import OrbitAndPanControls from './OrbitAndPanControls.js';
 var ColladaLoader = require('three-collada-loader');
 
-class SceneComponent extends React.Component {
+class PianoComponent extends React.Component {
   constructor(props){
     super(props);
     this.props = props;
@@ -66,8 +66,11 @@ class SceneComponent extends React.Component {
 
     this.floor = new THREE.Mesh( new THREE.PlaneGeometry( 8000, 8000 ), new THREE.MeshBasicMaterial( { color: 0xf0f0f0 } ) );
     // this.floor = new THREE.Mesh( new THREE.PlaneGeometry( 8000, 8000 ), new THREE.MeshBasicMaterial( { color: 0xff00 } ) );
-    this.floor.rotation.x = - 90 * ( Math.PI / 180 );
-    this.floor.position.y = -1.5;
+    // this.floor.rotation.x = -90 * ( Math.PI /  180 );
+    this.floor.rotation.x = -1 * ( Math.PI /  4  ) - Math.PI/2;
+    this.floor.rotation.y = 0;
+    this.floor.rotation.z = 0;
+    this.floor.position.y = -0.40;
     this.floor.receiveShadow = true;
     this.floor.castShadow = true;
     this.scene.add(this.floor);
@@ -173,8 +176,9 @@ class SceneComponent extends React.Component {
 
 
   initialize_keys(obj){
-    window.scene = this.scene;
     this.keys_obj.push(obj);
+    obj.castShadow = true;
+    obj.receiveShadow = true;
     obj.rotation.x = -Math.PI/4.0;
     // obj.rotation.x = 0;
     obj.rotation.y = 0;
@@ -205,8 +209,8 @@ class SceneComponent extends React.Component {
     //var spotlight = new THREE.SpotLight(0xffffff);
     var spotlight = new THREE.DirectionalLight(0xffffff);
 
-    spotlight.position.set(1.0,2.4,100.5);
-    spotlight.target.position.set(6.0,-60,8);
+    spotlight.position.set(1.0,2.4,40);
+    spotlight.target.position.set(6.0,-6,7);
     spotlight.shadowCameraVisible = false;
     spotlight.shadowDarkness = 0.75;
     spotlight.intensity = 0.8;
@@ -254,4 +258,4 @@ class SceneComponent extends React.Component {
   }
 }
 
-export default SceneComponent;
+export default PianoComponent;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SceneComponent from './SceneComponent.js';
+import PianoComponent from './PianoComponent.js';
 
 class App extends Component {
   constructor(props){
@@ -32,7 +32,7 @@ class App extends Component {
           <h1 className="App-title">Mohanty</h1>
         </header>
 
-        <SceneComponent key_states={this.state.key_states}/>
+        <PianoComponent key_states={this.state.key_states}/>
       </div>
     );
   }
