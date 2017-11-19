@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import PianoComponent from './PianoComponent.js';
 
 class App extends Component {
@@ -26,14 +24,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Mohanty</h1>
-        </header>
-
         <PianoComponent key_states={this.state.key_states}/>
-      </div>
     );
   }
 }
