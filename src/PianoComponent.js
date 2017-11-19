@@ -10,7 +10,10 @@ class PianoComponent extends React.Component {
     this.props = props;
     this.state = {
       cubeRotation: new THREE.Euler(),
-      key_states: new Array(162).fill(0)
+      key_states: new Array(162).fill(0),
+      key_attack_time: this.props.key_attack_time || 9.0,
+      key_max_rotation: this.props.key_max_rotation || 0.72,
+      octave: this.props.octave || 2
     };
 
     this.init_lights = this.init_lights.bind(this);
@@ -26,7 +29,7 @@ class PianoComponent extends React.Component {
     this.key_status = this.key_status.bind(this);
 
     //TODO: Make params configurable through `this.props`
-    this.key_attack_time = 9.0;
+    this.state.key_attack_time = 9.0;
     this.key_max_rotation =  0.72;
     this.octave = 2;
     // this.song = "game_of_thrones.mid";
@@ -35,10 +38,10 @@ class PianoComponent extends React.Component {
     this.keyState = Object.freeze ({unpressed: {}, note_on: {}, pressed:{}, note_off:{} });
   }
   frame(delta){
-    requestAnimationFrame(this.frame);
     var delta = this.clock.getDelta();
     this.update(delta);
     this.renderer.render(this.scene, this.camera);
+    requestAnimationFrame(this.frame);
     // console.log(this.camera);
   }
 
@@ -65,19 +68,18 @@ class PianoComponent extends React.Component {
 
     this.material = new THREE.MeshLambertMaterial( { color: 0x606060} )
 
-    this.floor = new THREE.Mesh( new THREE.PlaneGeometry( 8000, 8000 ), new THREE.MeshBasicMaterial( { color: 0xf0f0f0 } ) );
+    this.floor = new THREE.Mesh( new THREE.PlaneBufferGeometry( 8000, 8000 ), new THREE.MeshStandardMaterial( { color: 0xf0f0f0 } ) );
     // this.floor = new THREE.Mesh( new THREE.PlaneGeometry( 8000, 8000 ), new THREE.MeshBasicMaterial( { color: 0xff00 } ) );
     // this.floor.rotation.x = -90 * ( Math.PI /  180 );
     this.floor.rotation.x = -1 * ( Math.PI /  4  ) - Math.PI/2;
     this.floor.rotation.y = 0;
     this.floor.rotation.z = 0;
-    this.floor.position.y = -0.40;
+    this.floor.position.y = -0.25;
     this.floor.receiveShadow = true;
     this.floor.castShadow = true;
     this.scene.add(this.floor);
-    this.scene.fog = new THREE.Fog( 0xffffff, 40, 50 );
+    // this.scene.fog = new THREE.Fog( 0xffffff, 40, 50 );
 
-    this.init_lights();
 
     var loader = new ColladaLoader();
     loader.load( 'https://raw.githubusercontent.com/spMohanty/3d-piano-player/master/obj/piano.dae', this.prepare_scene );
@@ -97,6 +99,8 @@ class PianoComponent extends React.Component {
     this.cameraControls.target.set(5.5,-0.8,0);
 
     this.clock = new THREE.Clock();
+
+    this.init_lights();
 
     this.frame();
     window.addEventListener( 'resize', this.on_window_resize, false );
@@ -136,7 +140,7 @@ class PianoComponent extends React.Component {
     if (obj.keyState == this.keyState.note_on)
     {
 
-        obj.rotation.x = this.mix(-Math.PI/4.0, -this.key_max_rotation, this.smoothstep(0.0, 1.0, this.key_attack_time*obj.clock.getElapsedTime()));
+        obj.rotation.x = this.mix(-Math.PI/4.0, -this.key_max_rotation, this.smoothstep(0.0, 1.0, this.state.key_attack_time*obj.clock.getElapsedTime()));
         if (obj.rotation.x >= -this.key_max_rotation)
         {
             obj.keyState = this.keyState.pressed;
@@ -149,8 +153,7 @@ class PianoComponent extends React.Component {
     }
     else if (obj.keyState == this.keyState.note_off)
     {
-        obj.rotation.x = this.mix(-this.key_max_rotation, -Math.PI/4.0, this.smoothstep(0.0, 1.0, this.key_attack_time*obj.clock.getElapsedTime()));
-        console.log(obj.rotation.x);
+        obj.rotation.x = this.mix(-this.key_max_rotation, -Math.PI/4.0, this.smoothstep(0.0, 1.0, this.state.key_attack_time*obj.clock.getElapsedTime()));
         if (obj.rotation.x <= -Math.PI/4.0)
         {
             obj.keyState = this.keyState.unpressed;
@@ -197,7 +200,6 @@ class PianoComponent extends React.Component {
         obj.material.specular = new THREE.Color().setRGB(0.25, 0.25, 0.25);;
 
         obj.material.note_off = obj.material.color.clone();
-        console.log("Added material:", obj);
     }
 
   }
@@ -210,33 +212,48 @@ class PianoComponent extends React.Component {
     //var spotlight = new THREE.SpotLight(0xffffff);
     var spotlight = new THREE.DirectionalLight(0xffffff);
 
-    spotlight.position.set(1.0,2.4,40);
-    spotlight.target.position.set(6.0,-6,7);
-    spotlight.shadowCameraVisible = false;
+    // spotlight.position.set(-10,10,-20);
+    spotlight.position.set(-1, 1, -2);
+
+    var targetObject = new THREE.Object3D();
+    targetObject.position.x = 10;
+    targetObject.position.y = 0;
+    targetObject.position.z = 4;
+    spotlight.target = targetObject;
+    this.scene.add(targetObject);
+    // window.keys_obj = this.keys_obj
+    // spotlight.target.position.set(10, 10, -10);
+    spotlight.shadowCameraVisible = true;
     spotlight.shadowDarkness = 0.75;
-    spotlight.intensity = 0.8;
+    spotlight.intensity = 1;
     spotlight.castShadow = true;
     spotlight.shadowMapWidth = 2048;
     spotlight.shadowMapHeight = 2048;
 
-    spotlight.shadowCameraNear = 5.0;
-    spotlight.shadowCameraFar = 20.0;
+    // spotlight.shadowCameraNear = 5.0;
+    // spotlight.shadowCameraFar = 20.0;
     spotlight.shadowBias = 0.0025;
+    window.scene = this.scene;
 
-    spotlight.shadowCameraLeft = -8.85;
-    spotlight.shadowCameraRight = 5.5;
-    spotlight.shadowCameraTop = 4;
-    spotlight.shadowCameraBottom = 0;
+    // spotlight.shadowCameraLeft = -8.85;
+    // spotlight.shadowCameraRight = 5.5;
+    // spotlight.shadowCameraTop = 4;
+    // spotlight.shadowCameraBottom = 0;
     this.scene.add(spotlight);
+
+    // var helper = new THREE.CameraHelper( spotlight.shadow.camera );
+    // this.scene.add( helper );
 
     var light1 = new THREE.DirectionalLight( 0xddffff, 1 );
     light1.position.set( 1, 1, -1 ).normalize();
     this.scene.add( light1 );
 
-    var light2 = new THREE.DirectionalLight( 0xff5555, 0.5 );
-    light2.position.set( -1, -1, -1 ).normalize();
-    this.scene.add( light2 );
+    var light3 = new THREE.AmbientLight( 0xffffff, 0.1 );
+    light3.position.set( 0, 0, 10 ).normalize();
+    this.scene.add( light3 );
+
   }
+
 
   render() {
     var _temp = []
