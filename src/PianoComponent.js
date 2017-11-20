@@ -267,9 +267,6 @@ class PianoComponent extends React.Component {
       }
     });
     this.last_state = _temp;
-
-    console.log(this.props.key_states);
-
     return (
       <div className="piano_renderer">
       </div>
