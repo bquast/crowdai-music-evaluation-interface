@@ -80,16 +80,18 @@ class PianoComponent extends React.Component {
 
     this.material = new THREE.MeshLambertMaterial( { color: 0x606060} )
 
-    this.floor = new THREE.Mesh( new THREE.PlaneBufferGeometry( 8000, 8000 ), new THREE.MeshStandardMaterial( { color: 0xf0f0f0 } ) );
-    // this.floor = new THREE.Mesh( new THREE.PlaneGeometry( 8000, 8000 ), new THREE.MeshBasicMaterial( { color: 0xff00 } ) );
-    // this.floor.rotation.x = -90 * ( Math.PI /  180 );
-    this.floor.rotation.x = -1 * ( Math.PI /  4  ) - Math.PI/2;
-    this.floor.rotation.y = 0;
-    this.floor.rotation.z = 0;
-    this.floor.position.y = -0.25;
-    this.floor.receiveShadow = true;
-    this.floor.castShadow = true;
-    this.scene.add(this.floor);
+    if(!this.props.noFloor){
+      this.floor = new THREE.Mesh( new THREE.PlaneBufferGeometry( 8000, 8000 ), new THREE.MeshStandardMaterial( { color: 0xf0f0f0 } ) );
+      // this.floor = new THREE.Mesh( new THREE.PlaneGeometry( 8000, 8000 ), new THREE.MeshBasicMaterial( { color: 0xff00 } ) );
+      // this.floor.rotation.x = -90 * ( Math.PI /  180 );
+      this.floor.rotation.x = -1 * ( Math.PI /  4  ) - Math.PI/2;
+      this.floor.rotation.y = 0;
+      this.floor.rotation.z = 0;
+      this.floor.position.y = -0.25;
+      this.floor.receiveShadow = true;
+      this.floor.castShadow = true;
+      this.scene.add(this.floor);      
+    }
     // this.scene.fog = new THREE.Fog( 0xffffff, 40, 50 );
 
 
@@ -319,6 +321,7 @@ PianoComponent.defaultProps = {
   key_states: {},
   key_attack_time: 9.0,
   key_max_rotation: 0.72,
-  octave: 2
+  octave: 2,
+  noFloor: false
 }
 export default PianoComponent;
