@@ -74,6 +74,9 @@ class PianoComponent extends React.Component {
     this.renderer.gammaInput = true;
     this.renderer.gammaOutput = true;
     this.renderer.physicallyBasedShading = true;
+    this.renderer.setClearColor (0xffffff, 1);
+
+
 
     //document.body.appendChild( this.renderer.domElement );
     document.getElementsByClassName("piano_renderer")[0].appendChild(this.renderer.domElement);
@@ -90,7 +93,7 @@ class PianoComponent extends React.Component {
       this.floor.position.y = -0.25;
       this.floor.receiveShadow = true;
       this.floor.castShadow = true;
-      this.scene.add(this.floor);      
+      this.scene.add(this.floor);
     }
     // this.scene.fog = new THREE.Fog( 0xffffff, 40, 50 );
 
