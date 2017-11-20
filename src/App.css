@@ -1,56 +1,217 @@
-.App {
-  text-align: center;
+.play_pause {
+  display: inline-block;
+  width: 10%;
+  float: left;
+  padding-top: 1px;
+}
+.progress_bar {
+  display: inline-block;
+  width: 80%;
+  float: left;
+}
+.time_marker {
+  display: inline-block;
+  width: 10%;
+  float: left;
+  padding-top: 2px;
+}
+.midi-player{
+  display: inline-block;
+  width: 100%
+}
+.controlsWrapper {
+  padding: 1%;
+  margin: 1.5%;
+  margin-right: 1.9%;
+  width: 43%;
+  display: inline-block;
+  float: center;
+  border: 1px solid #D95D55;
+  border-radius: 10px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.PlayButton,
+.PauseButton,
+.PrevButton,
+.NextButton,
+.SoundOnButton,
+.SoundOffButton {
+  margin-right: 10px;
+  padding: 8px;
+  background: #ffffff;
+  border: 2px solid #D95D55;
+  border-radius: 100%;
+  outline: none;
+}
+.PlayButton[disabled],
+.PauseButton[disabled],
+.PrevButton[disabled],
+.NextButton[disabled],
+.SoundOnButton[disabled],
+.SoundOffButton[disabled] {
+  opacity: 0.5;
+}
+.PlayButton.isEnabled,
+.PauseButton.isEnabled,
+.PrevButton.isEnabled,
+.NextButton.isEnabled,
+.SoundOnButton.isEnabled,
+.SoundOffButton.isEnabled {
+  cursor: pointer;
+}
+.PlayButton.isEnabled:hover,
+.PauseButton.isEnabled:hover,
+.PrevButton.isEnabled:hover,
+.NextButton.isEnabled:hover,
+.SoundOnButton.isEnabled:hover,
+.SoundOffButton.isEnabled:hover {
+  border-color: #99352f;
+}
+.PlayButton.isEnabled:hover .Icon-shape,
+.PauseButton.isEnabled:hover .Icon-shape,
+.PrevButton.isEnabled:hover .Icon-shape,
+.NextButton.isEnabled:hover .Icon-shape,
+.SoundOnButton.isEnabled:hover .Icon-shape,
+.SoundOffButton.isEnabled:hover .Icon-shape {
+  fill: #99352f;
+}
+.PlayButton.isEnabled:active,
+.PauseButton.isEnabled:active,
+.PrevButton.isEnabled:active,
+.NextButton.isEnabled:active,
+.SoundOnButton.isEnabled:active,
+.SoundOffButton.isEnabled:active {
+  border-color: rgba(153, 53, 47, 0.5);
+}
+.PlayButton.isEnabled:active .Icon-shape,
+.PauseButton.isEnabled:active .Icon-shape,
+.PrevButton.isEnabled:active .Icon-shape,
+.NextButton.isEnabled:active .Icon-shape,
+.SoundOnButton.isEnabled:active .Icon-shape,
+.SoundOffButton.isEnabled:active .Icon-shape {
+  fill: rgba(153, 53, 47, 0.5);
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.Icon {
+  width: 30px;
+  height: 30px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.Icon-shape {
+  fill: #D95D55;
 }
 
-.App-intro {
-  font-size: large;
+.ProgressBar,
+.VolumeSlider {
+  position: relative;
+  background: #eee;
+  border-radius: 4px;
+}
+.ProgressBar-elapsed, .ProgressBar-value,
+.VolumeSlider-elapsed,
+.VolumeSlider-value {
+  background: #595E72;
+  border-radius: 4px;
+}
+.ProgressBar-seek,
+.VolumeSlider-seek {
+  position: absolute;
+  cursor: pointer;
+}
+.ProgressBar-handle,
+.VolumeSlider-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #D95D55;
+  border-radius: 100%;
+  transform: scale(0);
+  transition: transform 0.2s;
+}
+.ProgressBar.isSeekable:hover .ProgressBar-handle,
+.ProgressBar.isSeekable:hover .VolumeSlider-handle, .ProgressBar.isEnabled:hover .ProgressBar-handle,
+.ProgressBar.isEnabled:hover .VolumeSlider-handle,
+.VolumeSlider.isSeekable:hover .ProgressBar-handle,
+.VolumeSlider.isSeekable:hover .VolumeSlider-handle,
+.VolumeSlider.isEnabled:hover .ProgressBar-handle,
+.VolumeSlider.isEnabled:hover .VolumeSlider-handle {
+  transform: scale(1);
+}
+.ProgressBar.isSeekable:hover .ProgressBar-intent,
+.ProgressBar.isSeekable:hover .VolumeSlider-intent, .ProgressBar.isEnabled:hover .ProgressBar-intent,
+.ProgressBar.isEnabled:hover .VolumeSlider-intent,
+.VolumeSlider.isSeekable:hover .ProgressBar-intent,
+.VolumeSlider.isSeekable:hover .VolumeSlider-intent,
+.VolumeSlider.isEnabled:hover .ProgressBar-intent,
+.VolumeSlider.isEnabled:hover .VolumeSlider-intent {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.05);
+}
+.ProgressBar.isSeekable .ProgressBar-elapsed,
+.ProgressBar.isSeekable .VolumeSlider-value, .ProgressBar.isEnabled .ProgressBar-elapsed,
+.ProgressBar.isEnabled .VolumeSlider-value,
+.VolumeSlider.isSeekable .ProgressBar-elapsed,
+.VolumeSlider.isSeekable .VolumeSlider-value,
+.VolumeSlider.isEnabled .ProgressBar-elapsed,
+.VolumeSlider.isEnabled .VolumeSlider-value {
+  background: #D95D55;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.ProgressBar {
+  height: 8px;
+  margin: 20px;
+}
+.ProgressBar-elapsed {
+  height: 100%;
+}
+.ProgressBar-seek {
+  top: -6px;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+}
+.ProgressBar-handle {
+  top: 0;
+  margin: -4px 0 0 -8px;
+}
+.ProgressBar.isSeekable:hover .ProgressBar-handle {
+  transform: scale(1);
+}
+.ProgressBar.isSeekable:hover .ProgressBar-intent {
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.ProgressBar.isLoading {
+  opacity: 0.5;
+  background: #ccc;
+  animation: barLoading 2s infinite;
 }
 
-canvas
-{
-    width: 100%; height: 100%
+.VolumeSlider {
+  width: 8px;
+  height: 100px;
 }
-body
-{
-    color: rgb(0, 0, 0);
-    font-family:Monospace;
-    font-size:13px;
-    text-align:center;
-
-    background-color: #fff;
-    margin: 0px;
-    overflow: hidden;
+.VolumeSlider-value {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
-
-#info
-{
-    position: absolute;
-    top: 0px; width: 100%;
-    padding: 5px;
+.VolumeSlider-seek {
+  left: -6px;
+  top: 0;
+  right: -6px;
+  bottom: 0;
 }
-
-a
-{
-    color: #1e83ff;
+.VolumeSlider-handle {
+  left: 0;
+  margin: 0 0 -8px -4px;
+}
+.VolumeSlider.isEnabled:hover .VolumeSlider-handle {
+  transform: scale(1);
+}
+.VolumeSlider.isEnabled:hover .VolumeSlider-intent {
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
