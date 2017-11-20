@@ -107,8 +107,8 @@ class PianoComponent extends React.Component {
     this.camera.quaternion._z = -0.004379122205301783;
     this.camera.quaternion._w = 0.8318804017827285;
 
-    this.cameraControls = new OrbitAndPanControls(this.camera, this.renderer.domElement);
-    this.cameraControls.target.set(5.5,-0.8,0);
+    // this.cameraControls = new OrbitAndPanControls(this.camera, this.renderer.domElement);
+    // this.cameraControls.target.set(5.5,-0.8,0);
 
     // this.camera.zoom = 1.6;
     // this.camera.updateProjectionMatrix();
@@ -134,7 +134,7 @@ class PianoComponent extends React.Component {
   // }
 
   update(delta){
-      this.cameraControls.update(delta);
+      // this.cameraControls.update(delta);
       for(var i in this.keys_obj)
       {
           this.update_key(this.keys_obj[i], delta);
