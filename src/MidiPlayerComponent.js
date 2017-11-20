@@ -177,7 +177,7 @@ class MidiPlayerComponent extends Component {
         onSeek={time => this.setState(() => ({ currentTime: time }))}
         onSeekStart={this.onSeekStart.bind(this)}
         onSeekEnd={this.onSeekEnd.bind(this)}
-        
+
         // onSeekStart={time => this.setState(() => ({ lastSeekStart: time }))}
         // onSeekEnd={time => this.setState(() => ({ lastSeekEnd: time }))}
         // onIntent={time => this.setState(() => ({ lastIntent: time }))}
@@ -229,7 +229,7 @@ class MidiPlayerComponent extends Component {
           <Col xs={3} sm={3} md={3} lg={2} xl={1}>
             {this.renderTimeMarker()}
           </Col>
-          <Col xs={2} sm={2} md={2} lg={2} xl={1}>
+          <Col xs={0} sm={2} md={2} lg={2} xl={1}>
             <button
               className="crowdai_btns btn share_button"
               disabled

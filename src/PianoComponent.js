@@ -74,7 +74,7 @@ class PianoComponent extends React.Component {
         canvas: canvas
       });
     // this.renderer.setSize( window.innerWidth, window.innerHeight );
-    this.renderer.setSize( document.getElementsByClassName("piano_renderer")[0].clientWidth, document.getElementsByClassName("piano_renderer")[0].clientHeight );    
+    this.renderer.setSize( document.getElementsByClassName("piano_renderer")[0].clientWidth, document.getElementsByClassName("piano_renderer")[0].clientHeight );
     this.renderer.shadowMapEnabled = true;
     this.renderer.shadowMapSoft = true;
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
@@ -83,7 +83,7 @@ class PianoComponent extends React.Component {
     this.renderer.physicallyBasedShading = true;
     this.renderer.setClearColor (this.props.backgroundColor, 1);
 
-
+    // window.THREE = THREE;
 
     //document.body.appendChild( this.renderer.domElement );
     document.getElementsByClassName("piano_renderer")[0].appendChild(this.renderer.domElement);
