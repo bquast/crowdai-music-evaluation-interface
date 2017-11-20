@@ -177,7 +177,7 @@ class MidiPlayerComponent extends Component {
         onSeek={time => this.setState(() => ({ currentTime: time }))}
         onSeekStart={this.onSeekStart.bind(this)}
         onSeekEnd={this.onSeekEnd.bind(this)}
-
+        
         // onSeekStart={time => this.setState(() => ({ lastSeekStart: time }))}
         // onSeekEnd={time => this.setState(() => ({ lastSeekEnd: time }))}
         // onIntent={time => this.setState(() => ({ lastIntent: time }))}
@@ -214,7 +214,7 @@ class MidiPlayerComponent extends Component {
             <button
               className="crowdai_btns btn share_button"
               disabled={!this.state.isHeartEnabled}
-              data-rh={this.state.isHeartEnabled ? "Think this song is better than the other one ? <br/> Vote for it !" : "You can vote for this song only after listening to it ;)"}
+              data-rh={this.state.isHeartEnabled ? "Vote for this song !" : "You can vote for this song only after listening to it ;)"}
               data-rh-at="bottom"
 
             >
