@@ -7,6 +7,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.17",
+    "soundfont-player": "^0.10.6",
     "three": "^0.86.0",
     "three-collada-loader": "0.0.1"
   },
