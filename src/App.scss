@@ -21,12 +21,21 @@ $white: #ffffff;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  outline: 0;
 
-  &:hover, {
+  &:hover {
     color: #fff;
     outline: 0;
   }
+  &:disabled {
+    color: $gray;
+    border: 2px solid $gray;
+    outline: 0;
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
 }
+// button
 
 .crowdai_btns {
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;

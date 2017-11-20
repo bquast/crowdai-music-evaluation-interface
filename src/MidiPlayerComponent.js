@@ -10,8 +10,8 @@ import { play } from 'react-icons-kit/fa/play';
 import { pause } from 'react-icons-kit/fa/pause';
 import { copy } from 'react-icons-kit/fa/copy';
 import { heart } from 'react-icons-kit/fa/heart';
-
 import "react-simple-flex-grid/lib/main.css";
+
 
 var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
@@ -214,7 +214,7 @@ class MidiPlayerComponent extends Component {
           <Col xs={2} sm={2} md={2} lg={2} xl={1}>
             <button
               className="crowdai_btns btn share_button"
-              disabled={true}
+              disabled
             >
               <Icon icon={copy}  />
             </button>

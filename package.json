@@ -40,6 +40,7 @@
     "react-dom": "^15.6.1",
     "react-icons-kit": "^1.0.7",
     "react-player-controls": "^0.5.17",
+    "react-progress-button": "^5.1.0",
     "react-simple-flex-grid": "^1.2.1",
     "sass-loader": "^6.0.6",
     "soundfont-player": "^0.10.6",
