@@ -2,7 +2,22 @@ import React from 'react';
 import * as THREE from 'three';
 import ReactDOM from 'react-dom';
 import OrbitAndPanControls from './OrbitAndPanControls.js';
+
 var ColladaLoader = require('three-collada-loader');
+const getCompoundBoundingBox = function(object3D) {
+    var box = null;
+    object3D.traverse(function (obj3D) {
+        var geometry = obj3D.geometry;
+        if (geometry === undefined) return;
+        geometry.computeBoundingBox();
+        if (box === null) {
+            box = geometry.boundingBox;
+        } else {
+            box.union(geometry.boundingBox);
+        }
+    });
+    return box;
+}
 
 class PianoComponent extends React.Component {
   constructor(props){
@@ -94,6 +109,9 @@ class PianoComponent extends React.Component {
 
     this.cameraControls = new OrbitAndPanControls(this.camera, this.renderer.domElement);
     this.cameraControls.target.set(5.5,-0.8,0);
+
+    // this.camera.zoom = 1.6;
+    // this.camera.updateProjectionMatrix();
 
     this.clock = new THREE.Clock();
 
@@ -201,9 +219,30 @@ class PianoComponent extends React.Component {
 
   }
 
+  fix_zoom(){
+    var boundingBox = getCompoundBoundingBox(this.collada_scene);
+    this.camera.zoom = 3;
+    this.camera.updateMatrix();
+    for(var i=0; i<29; i+=1){
+      this.camera.zoom -= 0.1;
+      this.camera.updateProjectionMatrix();
+      console.log("Zoom : ", this.camera.zoom);
+      var frustum = new THREE.Frustum();
+      frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse));
+
+      var pos_min = new THREE.Vector3(boundingBox.min.x, boundingBox.min.y-100, boundingBox.min.z);
+      var pos_max = new THREE.Vector3(boundingBox.min.x, boundingBox.min.y+100, boundingBox.min.z);
+
+      if (frustum.containsPoint(pos_min) && frustum.containsPoint(pos_max)){
+        break;
+      }
+    }
+  }
   prepare_scene(collada){
     collada.scene.traverse(this.initialize_keys);
+    this.collada_scene = collada.scene;
     this.scene.add(collada.scene);
+    // this.fix_zoom();
   }
   init_lights(){
     //var spotlight = new THREE.SpotLight(0xffffff);
