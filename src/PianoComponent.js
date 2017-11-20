@@ -123,10 +123,8 @@ class PianoComponent extends React.Component {
     this.camera.updateProjectionMatrix();
 
     // this.cameraControls = new OrbitAndPanControls(this.camera, this.renderer.domElement);
-    // this.cameraControls.target.set(5.5,-0.8,0);
-
     // this.camera.zoom = 1.6;
-    // this.camera.updateProjectionMatrix();
+    this.camera.updateProjectionMatrix();
 
     this.clock = new THREE.Clock();
 
@@ -134,12 +132,12 @@ class PianoComponent extends React.Component {
 
     this.frame();
     window.addEventListener( 'resize', this.on_window_resize, false );
+    this.on_window_resize();
   }
   on_window_resize(){
       this.camera.aspect = document.getElementsByClassName("piano_renderer")[0].clientWidth / document.getElementsByClassName("piano_renderer")[0].clientHeight;
-      this.camera.updateProjectionMatrix();
-
       this.renderer.setSize( document.getElementsByClassName("piano_renderer")[0].clientWidth, document.getElementsByClassName("piano_renderer")[0].clientHeight );
+      this.camera.updateProjectionMatrix();
   }
   // frame(){
   //     requestAnimationFrame(this.frame);
