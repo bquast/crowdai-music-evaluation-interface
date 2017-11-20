@@ -221,17 +221,20 @@ class PianoComponent extends React.Component {
 
   fix_zoom(){
     var boundingBox = getCompoundBoundingBox(this.collada_scene);
-    this.camera.zoom = 3;
+    this.camera.zoom = 10;
     this.camera.updateMatrix();
-    for(var i=0; i<29; i+=1){
+    for(var i=0; i<1000; i+=1){
+      if(this.camera.zoom <= 0.5){
+        break
+      }
       this.camera.zoom -= 0.1;
       this.camera.updateProjectionMatrix();
       console.log("Zoom : ", this.camera.zoom);
       var frustum = new THREE.Frustum();
       frustum.setFromMatrix(new THREE.Matrix4().multiplyMatrices(this.camera.projectionMatrix, this.camera.matrixWorldInverse));
 
-      var pos_min = new THREE.Vector3(boundingBox.min.x, boundingBox.min.y-100, boundingBox.min.z);
-      var pos_max = new THREE.Vector3(boundingBox.min.x, boundingBox.min.y+100, boundingBox.min.z);
+      var pos_min = new THREE.Vector3(boundingBox.min.x, boundingBox.min.y, boundingBox.min.z);
+      var pos_max = new THREE.Vector3(boundingBox.min.x, boundingBox.min.y, boundingBox.min.z);
 
       if (frustum.containsPoint(pos_min) && frustum.containsPoint(pos_max)){
         break;
