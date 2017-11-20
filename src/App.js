@@ -7,31 +7,35 @@ class App extends Component {
     super(props);
 
     this.state = {
-      key_states : new Array(80).fill(0)
+
+    }
+    this.octave = 2;
+    this.max_number_of_piano_keys = 80;
+    for(var i = 0; i<80; i++){
+      this.state["key_"+i] = 0;
     }
   }
   OnNoteOn(noteNumber){
-    console.log("NOte ON ", noteNumber)
+    if(noteNumber > this.octave*2 + this.max_number_of_piano_keys){
+      return;
+    }
+    let key = "key_"+ (noteNumber - this.octave*12);
+    this.state[key] = 1;
+    this.setState(this.state);
   }
   OnNoteOff(noteNumber){
-    console.log("NOte Off ", noteNumber)
+    if(noteNumber > this.octave*2 + this.max_number_of_piano_keys){
+      return;
+    }
+    let key = "key_"+(noteNumber - this.octave*12)
+    this.state[key] = 0;
+    this.setState(this.state);
   }
-  // interval(){
-  //   var _states = []
-  //   for(var i = 0; i< 80; i++){
-  //     if(Math.random() < 0.05){
-  //       _states.push(1);
-  //     }else{
-  //       _states.push(0);
-  //     }
-  //   }
-  //   this.setState({key_states : _states});
-  // }
   render() {
     return (
       <div>
         <MidiPlayerComponent onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)}/>
-        <PianoComponent key_states={this.state.key_states}/>
+        <PianoComponent key_states={this.state}/>
       </div>
     );
   }

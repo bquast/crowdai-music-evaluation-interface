@@ -251,20 +251,24 @@ class PianoComponent extends React.Component {
 
   }
 
-
   render() {
-    var _temp = []
-    for(var i=0; i< this.props.key_states.length; i++){
-      if(this.last_state){
+
+    var _temp = {}
+    Object.keys(this.props.key_states).map(i => {
+      if(i.startsWith("key_")){
+        if(this.last_state){
           if(this.last_state[i] == 0 && this.props.key_states[i] == 1){
-            this.key_status("_"+i, this.keyState.note_on);
-          }else if (this.last_state[i] == 1 && this.props.key_states[i] == 0) {
-            this.key_status("_"+i, this.keyState.note_off);
+            this.key_status("_"+i.replace("key_", ""), this.keyState.note_on);
+          }else if(this.last_state[i] == 1 && this.props.key_states[i] == 0){
+            this.key_status("_"+i.replace("key_", ""), this.keyState.note_off);
           }
+        }
+        _temp[i] = this.props.key_states[i];
       }
-      _temp.push(this.props.key_states[i]);
-    }
+    });
     this.last_state = _temp;
+
+    console.log(this.props.key_states);
 
     return (
       <div className="piano_renderer">
@@ -273,7 +277,7 @@ class PianoComponent extends React.Component {
   }
 }
 PianoComponent.defaultProps = {
-  key_states: new Array(162).fill(0),
+  key_states: {},
   key_attack_time: 9.0,
   key_max_rotation: 0.72,
   octave: 2
