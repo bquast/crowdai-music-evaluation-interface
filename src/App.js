@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PianoComponent from './PianoComponent.js';
 import MidiPlayerComponent from './MidiPlayerComponent.js';
 import './App.css';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-import Box from './Box.js';
+import { Row, Col } from 'react-simple-flex-grid';
+import "react-simple-flex-grid/lib/main.css";
 
 
 class App extends Component {
@@ -43,21 +43,19 @@ class App extends Component {
   }
   render() {
     return (
-        <Grid fluid className="midi-player">
-          <Row>
-            <Box className="song_1" type="row" xs={6} sm={6} md={6} lg={6}>
-              <MidiPlayerComponent dataUri={this.props.song1} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
-            </Box>
-            <Box className="song_2" type="row" xs={6} sm={6} md={6} lg={6}>
-              <MidiPlayerComponent dataUri={this.props.song2} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
-            </Box>
-          </Row>
-          <Row>
-            <Box className="piano" type="row" xs={6} sm={6} md={6} lg={6}>
-              <PianoComponent key_states={this.state} noFloor />
-            </Box>
-          </Row>
-        </Grid>
+      <div>
+        <Row gutter={10} align="middle" justify="center">
+          <Col xs={6}>
+            <MidiPlayerComponent dataUri={this.props.song1} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
+          </Col>
+          <Col xs={6}>
+            <MidiPlayerComponent dataUri={this.props.song2} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
+          </Col>
+        </Row>
+        <Row>
+          <PianoComponent key_states={this.state} noFloor />
+        </Row>
+      </div>
     );
   }
 }

@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import MidiPlayer from 'midi-player-js';
 import Soundfont from 'soundfont-player';
 import {PlayButton, PauseButton, ProgressBar, TimeMarker} from 'react-player-controls';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-import Box from './Box.js';
+import { Row, Col } from 'react-simple-flex-grid';
+import "react-simple-flex-grid/lib/main.css";
 
 var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
@@ -176,26 +176,17 @@ class MidiPlayerComponent extends Component {
     }
     return (
 
-      <Grid fluid className="controlsWrapper">
-        <Row>
-          <Box className="play_pause center-xs" type="row" xs={2} sm={2} md={2} lg={1}>
-            <Box className="innerBox middle-xs" type="container" xs={12} sm={12} md={12} lg={12}>
-              {this.renderPlayPause()}
-            </Box>
-          </Box>
-          <Box type="row" className="middle-xs middle-md middle-lg" xs={6} sm={8} md={8} lg={10}>
-            <Box type="container" xs={6} sm={8} md={8} lg={10}>
-
-              {this.renderProgressBar()}
-            </Box>
-          </Box>
-          <Box className="center-xs" type="row" xs={4} sm={2} md={2} lg={1}>
-            <Box className="innerBox center-xs" type="container" xs={12} sm={12} md={12} lg={12}>
-              {this.renderTimeMarker()}
-            </Box>
-          </Box>
+        <Row className="controlsWrapper" align="middle" justify="center">
+          <Col xs={2} sm={2} md={1} lg={1} xl={1}>
+            {this.renderPlayPause()}
+          </Col>
+          <Col xs={0} sm={7} md={9} lg={9} xl={9}>
+            {this.renderProgressBar()}
+          </Col>
+          <Col xs={10} sm={3} md={2} lg={2} xl={2}>
+            {this.renderTimeMarker()}
+          </Col>
         </Row>
-      </Grid>
     );
   }
 }
