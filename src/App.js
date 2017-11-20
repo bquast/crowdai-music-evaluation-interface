@@ -40,8 +40,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        <MidiPlayerComponent onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
-        <PianoComponent key_states={this.state}/>
+        <div className="midi-player">
+          <MidiPlayerComponent onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
+        </div>
+        <div className="piano-component">
+          <PianoComponent key_states={this.state}/>
+        </div>
       </div>
     );
   }

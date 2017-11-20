@@ -166,7 +166,9 @@ class MidiPlayerComponent extends Component {
 
           </pre>
         </div>
-        {this.state.status_message}
+        <div className="status_message">
+          {this.state.status_message}
+        </div>
       </div>
     );
   }
