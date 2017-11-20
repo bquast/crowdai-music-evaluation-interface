@@ -30,7 +30,7 @@ class MidiPlayerComponent extends Component {
       currentTime: 0,
       totalTime: 0,
       status_message: 'Loading Instruments 🎻 🎷 🎺 🎸 🥁 ...',
-      largeIconSize: 50
+      largeIconSize: 60
     }
 
     this.load_data_uri = this.load_data_uri.bind(this);
@@ -194,28 +194,29 @@ class MidiPlayerComponent extends Component {
     }
     return (
       <div className="controlsWrapper">
-        <Row align="middle" justify="center">
-          <Col>
+        <Row gutter="20" justify="center">
+          <Col xs={{span:4}} sm={{span:3}} md={{span:3}} lg={{span:3}} xl={{span:3}} >
             {this.renderPlayPause()}
           </Col>
-          <Col>
+          <Col xs={{span:4}} sm={{span:3}} md={{span:3}} lg={{span:3}} xl={{span:3}} >
             <button className="crowdai_btns btn share_button">
               <Icon icon={heart} size={this.state.largeIconSize} />
             </button>
-
           </Col>
-
         </Row>
         <Row align="middle" justify="center">
-          <Col xs={0} sm={7} md={7} lg={8} xl={9}>
+          <Col xs={7} sm={7} md={7} lg={8} xl={10}>
             {this.renderProgressBar()}
           </Col>
-          <Col xs={10} sm={3} md={3} lg={2} xl={2}>
+          <Col xs={3} sm={3} md={3} lg={2} xl={1}>
             {this.renderTimeMarker()}
           </Col>
           <Col xs={2} sm={2} md={2} lg={2} xl={1}>
-            <button className="crowdai_btns btn share_button">
-              <Icon icon={copy} />
+            <button
+              className="crowdai_btns btn share_button"
+              disabled={true}
+            >
+              <Icon icon={copy}  />
             </button>
           </Col>
         </Row>
