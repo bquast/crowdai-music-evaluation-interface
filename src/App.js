@@ -55,8 +55,10 @@ class App extends Component {
             <MidiPlayerComponent dataUri={this.props.song2} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
           </Col>
         </Row>
-        <Row>
-          <PianoComponent key_states={this.state} noFloor />
+        <Row align="middle" justify="center">
+          <Col span={12}>
+            <PianoComponent key_states={this.state} noFloor />
+          </Col>
         </Row>
       </div>
     );

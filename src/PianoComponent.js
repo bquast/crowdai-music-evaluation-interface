@@ -27,7 +27,8 @@ class PianoComponent extends React.Component {
       key_states: this.props.key_states,
       key_attack_time: this.props.key_attack_time,
       key_max_rotation: this.props.key_max_rotation,
-      octave: this.props.octave
+      octave: this.props.octave,
+      canvas_id: "canvas_"+parseInt(Math.random()*10000000)
     };
 
     console.log(this.state);
@@ -66,8 +67,14 @@ class PianoComponent extends React.Component {
     window.keys_obj = this.keys_obj;
 
     // window.keyState = this.keyState;
-    this.renderer = new THREE.WebGLRenderer({antialias:true});
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    var canvas = document.getElementById(this.state.canvas_id);
+    this.renderer = new THREE.WebGLRenderer(
+      {
+        antialias:true,
+        canvas: canvas
+      });
+    // this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.renderer.setSize( document.getElementsByClassName("piano_renderer")[0].clientWidth, document.getElementsByClassName("piano_renderer")[0].clientHeight );    
     this.renderer.shadowMapEnabled = true;
     this.renderer.shadowMapSoft = true;
     this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
@@ -126,10 +133,10 @@ class PianoComponent extends React.Component {
     window.addEventListener( 'resize', this.on_window_resize, false );
   }
   on_window_resize(){
-      this.camera.aspect = window.innerWidth / window.innerHeight;
+      this.camera.aspect = document.getElementsByClassName("piano_renderer")[0].clientWidth / document.getElementsByClassName("piano_renderer")[0].clientHeight;
       this.camera.updateProjectionMatrix();
 
-      this.renderer.setSize( window.innerWidth, window.innerHeight );
+      this.renderer.setSize( document.getElementsByClassName("piano_renderer")[0].clientWidth, document.getElementsByClassName("piano_renderer")[0].clientHeight );
   }
   // frame(){
   //     requestAnimationFrame(this.frame);
@@ -316,6 +323,7 @@ class PianoComponent extends React.Component {
     this.last_state = _temp;
     return (
       <div className="piano_renderer">
+        <canvas id={this.state.canvas_id} style={{width:"100%", height:"100%"}}/>
       </div>
     );
   }
