@@ -7,7 +7,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-
     }
     this.octave = 2;
     this.max_number_of_piano_keys = 80;
