@@ -20,7 +20,6 @@ class App extends Component {
       this.state["key_"+i] = 0;
     }
     this.setState(this.state);
-    console.log("RESET KEYBOARD");
   }
   OnNoteOn(noteNumber){
     if(noteNumber > this.octave*2 + this.max_number_of_piano_keys){
