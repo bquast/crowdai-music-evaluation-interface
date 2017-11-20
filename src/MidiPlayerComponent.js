@@ -23,6 +23,7 @@ class MidiPlayerComponent extends Component {
       isLoading: true,
       isPlayEnabled: false,
       isPauseEnabled: false,
+      isHeartEnabled: false,
       isInstrument_loaded: false,
       isMIDIFileLoaded: false,
       isSeekable: true,
@@ -182,7 +183,7 @@ class MidiPlayerComponent extends Component {
       <TimeMarker
         totalTime={this.state.totalTime}
         currentTime={Math.max(0, this.state.currentTime)}
-        markerSeparator={"/"}
+        markerSeparator={" /"}
       />
     );
   }
@@ -192,6 +193,10 @@ class MidiPlayerComponent extends Component {
       this.dataUri = this.props.dataUri;
       return null;
     }
+
+    if(this.state.currentTime!=0 && this.state.totalTime !=0 && this.state.currentTime*1.0/this.state.totalTime > 0.2){
+      this.state.isHeartEnabled = true;
+    }
     return (
       <div className="controlsWrapper">
         <Row gutter="20" justify="center">
@@ -199,7 +204,10 @@ class MidiPlayerComponent extends Component {
             {this.renderPlayPause()}
           </Col>
           <Col xs={{span:4}} sm={{span:3}} md={{span:3}} lg={{span:3}} xl={{span:3}} >
-            <button className="crowdai_btns btn share_button">
+            <button
+              className="crowdai_btns btn share_button"
+              disabled={!this.state.isHeartEnabled}
+            >
               <Icon icon={heart} size={this.state.largeIconSize} />
             </button>
           </Col>
