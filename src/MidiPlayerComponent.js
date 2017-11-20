@@ -46,11 +46,10 @@ class MidiPlayerComponent extends Component {
   }
   player_fileLoaded(){
     console.log("fileLoaded");
-    this.state.status_message = "";
     //This is where the UI for Play/Pause etc will be enabled
     let totalTime = this.Player.getSongTime();
     let currentTime = this.Player.getSongTime() - this.Player.getSongTimeRemaining();
-    this.setState({totalTime: totalTime, currentTime: 0.1, isPlayEnabled: true, isPauseEnabled: false});
+    this.setState({totalTime: totalTime, currentTime: 0, isPlayEnabled: true, isPauseEnabled: false, status_message: ""});
     // this.Player.play()
   }
   player_playing(currentTick){
@@ -90,7 +89,6 @@ class MidiPlayerComponent extends Component {
   }
   instrument_loaded(_instrument){
     this.instrument = _instrument;
-    this.load_data_uri();
   }
   load_data_uri(){
     this.setState({status_message: "Loading MIDI file..."});
@@ -98,6 +96,7 @@ class MidiPlayerComponent extends Component {
   }
   playSong(){
     this.Player.play();
+    // this.setState({isPlayEnabled: false, isPauseEnabled: true, currentTime: this.Player.getSongTime()});        
   }
   pauseSong(){
     this.Player.pause();
@@ -136,6 +135,11 @@ class MidiPlayerComponent extends Component {
 
   }
   render() {
+    if(this.props.dataUri != this.dataUri){
+      this.load_data_uri()
+      this.dataUri = this.props.dataUri;
+      return null;
+    }
     return (
       <div className="controlsWrapper" style={{width:"100%", display:"inline-block"}}>
         <div className="play_pause">
