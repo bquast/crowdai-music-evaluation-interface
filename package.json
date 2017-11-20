@@ -38,6 +38,7 @@
     "react-button": "^1.2.1",
     "react-dev-utils": "^4.2.1",
     "react-dom": "^15.6.1",
+    "react-hint": "^3.0.0",
     "react-icons-kit": "^1.0.7",
     "react-player-controls": "^0.5.17",
     "react-progress-button": "^5.1.0",

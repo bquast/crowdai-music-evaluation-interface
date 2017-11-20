@@ -4,8 +4,10 @@ import MidiPlayerComponent from './MidiPlayerComponent.js';
 import './App.css';
 import { Row, Col } from 'react-simple-flex-grid';
 import "react-simple-flex-grid/lib/main.css";
+import ReactHintFactory from 'react-hint'
+import 'react-hint/css/index.css'
 
-
+const ReactHint = ReactHintFactory(React)
 class App extends Component {
   constructor(props){
     super(props);
@@ -44,6 +46,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ReactHint events delay={100} />
         <Row gutter={10} align="middle" justify="center">
           <Col xs={11} sm={6} md={6} lg={6} xl={6}>
             <MidiPlayerComponent dataUri={this.props.song1} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>

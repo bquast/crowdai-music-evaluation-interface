@@ -10,11 +10,11 @@ import { play } from 'react-icons-kit/fa/play';
 import { pause } from 'react-icons-kit/fa/pause';
 import { copy } from 'react-icons-kit/fa/copy';
 import { heart } from 'react-icons-kit/fa/heart';
+
 import "react-simple-flex-grid/lib/main.css";
 
 
 var AudioContext = window.AudioContext || window.webkitAudioContext || false;
-
 
 class MidiPlayerComponent extends Component {
   constructor(props){
@@ -135,6 +135,8 @@ class MidiPlayerComponent extends Component {
           className = "crowdai_btns btn"
           disabled={!this.state.isPlayEnabled}
           onClick={this.playSong}
+          data-rh="Play Song"
+          data-rh-at="top"
         >
           <Icon icon={play} size={this.state.largeIconSize}/>
         </button>
@@ -145,6 +147,8 @@ class MidiPlayerComponent extends Component {
           className = "crowdai_btns btn"
           disabled={this.state.isPlayEnabled}
           onClick={this.pauseSong}
+          data-rh="Pause Song"
+          data-rh-at="top"
         >
           <Icon icon={pause} size={this.state.largeIconSize}/>
         </button>
@@ -155,6 +159,8 @@ class MidiPlayerComponent extends Component {
           className = "crowdai_btns btn"
           disabled={!this.state.isPlayEnabled}
           onClick={this.playSong}
+          data-rh="Loading 🎵"
+          data-rh-at="top"
         >
           <Icon icon={play} size={this.state.largeIconSize}/>
         </button>
@@ -199,6 +205,7 @@ class MidiPlayerComponent extends Component {
     }
     return (
       <div className="controlsWrapper">
+
         <Row gutter="20" justify="center">
           <Col xs={{span:4}} sm={{span:3}} md={{span:3}} lg={{span:3}} xl={{span:3}} >
             {this.renderPlayPause()}
@@ -207,6 +214,9 @@ class MidiPlayerComponent extends Component {
             <button
               className="crowdai_btns btn share_button"
               disabled={!this.state.isHeartEnabled}
+              data-rh={this.state.isHeartEnabled ? "Think this song is better than the other one ? <br/> Vote for it !" : "You can vote for this song only after listening to it ;)"}
+              data-rh-at="bottom"
+
             >
               <Icon icon={heart} size={this.state.largeIconSize} />
             </button>
@@ -223,6 +233,8 @@ class MidiPlayerComponent extends Component {
             <button
               className="crowdai_btns btn share_button"
               disabled
+              data-rh="Unique link to this song"
+              data-rh-at="top"
             >
               <Icon icon={copy}  />
             </button>
