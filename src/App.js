@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PianoComponent from './PianoComponent.js';
+import MidiPlayer from './MidiPlayer.js';
 
 class App extends Component {
   constructor(props){
@@ -24,7 +25,10 @@ class App extends Component {
   }
   render() {
     return (
+      <div>
+        <MidiPlayer/>
         <PianoComponent key_states={this.state.key_states}/>
+      </div>
     );
   }
 }

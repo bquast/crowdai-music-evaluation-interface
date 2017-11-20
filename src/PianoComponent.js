@@ -9,12 +9,13 @@ class PianoComponent extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-      cubeRotation: new THREE.Euler(),
-      key_states: new Array(162).fill(0),
-      key_attack_time: this.props.key_attack_time || 9.0,
-      key_max_rotation: this.props.key_max_rotation || 0.72,
-      octave: this.props.octave || 2
+      key_states: this.props.key_states,
+      key_attack_time: this.props.key_attack_time,
+      key_max_rotation: this.props.key_max_rotation,
+      octave: this.props.octave
     };
+
+    console.log(this.state);
 
     this.init_lights = this.init_lights.bind(this);
     this.prepare_scene = this.prepare_scene.bind(this);
@@ -28,10 +29,6 @@ class PianoComponent extends React.Component {
     this.mix = this.mix.bind(this);
     this.key_status = this.key_status.bind(this);
 
-    //TODO: Make params configurable through `this.props`
-    this.state.key_attack_time = 9.0;
-    this.key_max_rotation =  0.72;
-    this.octave = 2;
     // this.song = "game_of_thrones.mid";
     this._noteOnColor = [ 255, 0, 0, 1.0 ];
     this.noteOnColor  = new THREE.Color().setRGB(this._noteOnColor[0]/256.0, this._noteOnColor[1]/256.0, this._noteOnColor[2]/256.0);
@@ -140,8 +137,8 @@ class PianoComponent extends React.Component {
     if (obj.keyState == this.keyState.note_on)
     {
 
-        obj.rotation.x = this.mix(-Math.PI/4.0, -this.key_max_rotation, this.smoothstep(0.0, 1.0, this.state.key_attack_time*obj.clock.getElapsedTime()));
-        if (obj.rotation.x >= -this.key_max_rotation)
+        obj.rotation.x = this.mix(-Math.PI/4.0, -this.state.key_max_rotation, this.smoothstep(0.0, 1.0, this.state.key_attack_time*obj.clock.getElapsedTime()));
+        if (obj.rotation.x >= -this.state.key_max_rotation)
         {
             obj.keyState = this.keyState.pressed;
             obj.clock.elapsedTime = 0;
@@ -153,7 +150,7 @@ class PianoComponent extends React.Component {
     }
     else if (obj.keyState == this.keyState.note_off)
     {
-        obj.rotation.x = this.mix(-this.key_max_rotation, -Math.PI/4.0, this.smoothstep(0.0, 1.0, this.state.key_attack_time*obj.clock.getElapsedTime()));
+        obj.rotation.x = this.mix(-this.state.key_max_rotation, -Math.PI/4.0, this.smoothstep(0.0, 1.0, this.state.key_attack_time*obj.clock.getElapsedTime()));
         if (obj.rotation.x <= -Math.PI/4.0)
         {
             obj.keyState = this.keyState.unpressed;
@@ -275,5 +272,10 @@ class PianoComponent extends React.Component {
     );
   }
 }
-
+PianoComponent.defaultProps = {
+  key_states: new Array(162).fill(0),
+  key_attack_time: 9.0,
+  key_max_rotation: 0.72,
+  octave: 2
+}
 export default PianoComponent;
