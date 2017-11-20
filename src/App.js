@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PianoComponent from './PianoComponent.js';
 import MidiPlayerComponent from './MidiPlayerComponent.js';
-import '/Users/spmohanty/work/crowdAI/music_generation_challenge/react-3d-piano/src/App.css';
+import './App.css';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import Box from './Box.js';
+
 
 class App extends Component {
   constructor(props){
@@ -28,7 +31,7 @@ class App extends Component {
     }
     let key = "key_"+ (noteNumber - this.octave*12);
     this.state[key] = 1;
-    // this.setState(this.state);
+    this.setState(this.state);
   }
   OnNoteOff(noteNumber){
     if(noteNumber > this.octave*2 + this.max_number_of_piano_keys){
@@ -36,19 +39,25 @@ class App extends Component {
     }
     let key = "key_"+(noteNumber - this.octave*12)
     this.state[key] = 0;
-    // this.setState(this.state);
+    this.setState(this.state);
   }
   render() {
     return (
-      <div>
-        <div className="midi-player">
-          <MidiPlayerComponent dataUri={this.props.song1} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
-          <MidiPlayerComponent dataUri={this.props.song2} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
-        </div>
-        <div className="piano-component">
-          {/* <PianoComponent key_states={this.state}/> */}
-        </div>
-      </div>
+        <Grid fluid className="midi-player">
+          <Row>
+            <Box className="song_1" type="row" xs={6} sm={6} md={6} lg={6}>
+              <MidiPlayerComponent dataUri={this.props.song1} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
+            </Box>
+            <Box className="song_2" type="row" xs={6} sm={6} md={6} lg={6}>
+              <MidiPlayerComponent dataUri={this.props.song2} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
+            </Box>
+          </Row>
+          <Row>
+            <Box className="piano" type="row" xs={6} sm={6} md={6} lg={6}>
+              <PianoComponent key_states={this.state}/>
+            </Box>
+          </Row>
+        </Grid>
     );
   }
 }

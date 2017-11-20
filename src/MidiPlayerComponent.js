@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import MidiPlayer from 'midi-player-js';
 import Soundfont from 'soundfont-player';
 import {PlayButton, PauseButton, ProgressBar, TimeMarker} from 'react-player-controls';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import Box from './Box.js';
 
 var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
@@ -141,6 +143,31 @@ class MidiPlayerComponent extends Component {
     }
 
   }
+  renderProgressBar(){
+    return(
+      <ProgressBar
+        totalTime={this.state.totalTime}
+        currentTime={this.state.currentTime}
+        isSeekable={this.state.isSeekable}
+        onSeek={time => this.setState(() => ({ currentTime: time }))}
+        onSeekStart={this.onSeekStart.bind(this)}
+        onSeekEnd={this.onSeekEnd.bind(this)}
+
+        // onSeekStart={time => this.setState(() => ({ lastSeekStart: time }))}
+        // onSeekEnd={time => this.setState(() => ({ lastSeekEnd: time }))}
+        // onIntent={time => this.setState(() => ({ lastIntent: time }))}
+      />
+    );
+  }
+  renderTimeMarker(){
+    return (
+      <TimeMarker
+        totalTime={this.state.totalTime}
+        currentTime={Math.max(0, this.state.currentTime)}
+        markerSeparator={"/"}
+      />
+    );
+  }
   render() {
     if(this.props.dataUri != this.dataUri){
       this.load_data_uri()
@@ -148,39 +175,27 @@ class MidiPlayerComponent extends Component {
       return null;
     }
     return (
-      <div className="controlsWrapper">
-        <div className="play_pause">
-          {this.renderPlayPause()}
-        </div>
-        <div className="progress_bar">
 
-          <ProgressBar
-            totalTime={this.state.totalTime}
-            currentTime={this.state.currentTime}
-            isSeekable={this.state.isSeekable}
-            onSeek={time => this.setState(() => ({ currentTime: time }))}
-            onSeekStart={this.onSeekStart.bind(this)}
-            onSeekEnd={this.onSeekEnd.bind(this)}
+      <Grid fluid className="controlsWrapper">
+        <Row>
+          <Box className="play_pause center-xs" type="row" xs={2} sm={2} md={2} lg={1}>
+            <Box className="innerBox middle-xs" type="container" xs={12} sm={12} md={12} lg={12}>
+              {this.renderPlayPause()}
+            </Box>
+          </Box>
+          <Box type="row" className="middle-xs middle-md middle-lg" xs={6} sm={8} md={8} lg={10}>
+            <Box type="container" xs={6} sm={8} md={8} lg={10}>
 
-            // onSeekStart={time => this.setState(() => ({ lastSeekStart: time }))}
-            // onSeekEnd={time => this.setState(() => ({ lastSeekEnd: time }))}
-            // onIntent={time => this.setState(() => ({ lastIntent: time }))}
-          />
-        </div>
-        <div className="time_marker">
-          <pre>
-            <TimeMarker
-              totalTime={this.state.totalTime}
-              currentTime={Math.max(0, this.state.currentTime)}
-              markerSeparator={"/"}
-            />
-
-          </pre>
-        </div>
-        <div className="status_message">
-          {this.state.status_message}
-        </div>
-      </div>
+              {this.renderProgressBar()}
+            </Box>
+          </Box>
+          <Box className="center-xs" type="row" xs={4} sm={2} md={2} lg={1}>
+            <Box className="innerBox center-xs" type="container" xs={12} sm={12} md={12} lg={12}>
+              {this.renderTimeMarker()}
+            </Box>
+          </Box>
+        </Row>
+      </Grid>
     );
   }
 }

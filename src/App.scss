@@ -2,38 +2,51 @@ $red: #D95D55;
 $gray: #595E72;
 $white: #ffffff;
 
-.play_pause {
-  display: inline-block;
-  width: 10%;
-  float: left;
-  padding-top: 1px;
-}
-.progress_bar {
-  display: inline-block;
-  width: 80%;
-  float: left;
-}
-.time_marker {
-  display: inline-block;
-  width: 10%;
-  float: left;
-  padding-top: 2px;
-}
-.midi-player{
-  display: inline-block;
-  width: 100%
-}
+// .play_pause {
+//   display: inline-block;
+//   width: 10%;
+//   float: left;
+//   padding-top: 1px;
+// }
+// .progress_bar {
+//   display: inline-block;
+//   width: 80%;
+//   float: left;
+// }
+// .time_marker {
+//   display: inline-block;
+//   width: 10%;
+//   float: left;
+//   padding-top: 2px;
+// }
+// .midi-player{
+//   display: inline-block;
+//   width: 100%
+// }
 .controlsWrapper {
-  padding: 1%;
-  margin: 1.5%;
-  margin-right: 1.9%;
-  width: 43%;
-  display: inline-block;
-  float: center;
+  // padding: 1%;
+  // margin: 1.5%;
+  // margin-right: 1.9%;
+  // width: 43%;
+  // display: inline-block;
+  // float: center;
   border: 1px solid $red;
-  border-radius: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
 }
-$icon-size: 30px;
+.play_pause{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.innerBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+$icon-size: 20px;
 
 // $color-hover: saturate(lighten($red, 10%), 20%);
 // $color-active: desaturate(darken($red, 20%), 20%);
