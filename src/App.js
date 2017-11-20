@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PianoComponent from './PianoComponent.js';
 import MidiPlayerComponent from './MidiPlayerComponent.js';
+import '/Users/spmohanty/work/crowdAI/music_generation_challenge/react-3d-piano/src/App.css';
 
 class App extends Component {
   constructor(props){

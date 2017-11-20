@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import MidiPlayer from 'midi-player-js';
 import Soundfont from 'soundfont-player';
 import {PlayButton, PauseButton, ProgressBar, TimeMarker} from 'react-player-controls';
-import './midi_controls.css';
 
 var AudioContext = window.AudioContext || window.webkitAudioContext || false;
 
