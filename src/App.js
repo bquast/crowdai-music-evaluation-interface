@@ -45,10 +45,10 @@ class App extends Component {
     return (
       <div>
         <Row gutter={10} align="middle" justify="center">
-          <Col xs={6}>
+          <Col xs={11} sm={6} md={6} lg={6} xl={6}>
             <MidiPlayerComponent dataUri={this.props.song1} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
           </Col>
-          <Col xs={6}>
+          <Col xs={11} sm={6} md={6} lg={6} xl={6}>
             <MidiPlayerComponent dataUri={this.props.song2} onNoteOn={this.OnNoteOn.bind(this)} onNoteOff={this.OnNoteOff.bind(this)} resetKeyBoard={this.resetKeyBoard}/>
           </Col>
         </Row>

@@ -3,7 +3,14 @@ import React, { Component } from 'react';
 import MidiPlayer from 'midi-player-js';
 import Soundfont from 'soundfont-player';
 import {PlayButton, PauseButton, ProgressBar, TimeMarker} from 'react-player-controls';
+import Button from 'react-button';
 import { Row, Col } from 'react-simple-flex-grid';
+import Icon from 'react-icons-kit';
+import { play } from 'react-icons-kit/fa/play';
+import { pause } from 'react-icons-kit/fa/pause';
+import { copy } from 'react-icons-kit/fa/copy';
+import { heart } from 'react-icons-kit/fa/heart';
+
 import "react-simple-flex-grid/lib/main.css";
 
 var AudioContext = window.AudioContext || window.webkitAudioContext || false;
@@ -22,7 +29,8 @@ class MidiPlayerComponent extends Component {
       isMuted: false,
       currentTime: 0,
       totalTime: 0,
-      status_message: 'Loading Instruments 🎻 🎷 🎺 🎸 🥁 ...'
+      status_message: 'Loading Instruments 🎻 🎷 🎺 🎸 🥁 ...',
+      largeIconSize: 50
     }
 
     this.load_data_uri = this.load_data_uri.bind(this);
@@ -122,24 +130,34 @@ class MidiPlayerComponent extends Component {
   renderPlayPause(){
     if(this.state.isPlayEnabled){
       return (
-        <PlayButton
-          isEnabled={this.state.isPlayEnabled}
+        <button
+          className = "crowdai_btns btn"
+          disabled={!this.state.isPlayEnabled}
           onClick={this.playSong}
-        />
+        >
+          <Icon icon={play} size={this.state.largeIconSize}/>
+        </button>
       );
     }else if(this.state.isPauseEnabled){
       return (
-        <PauseButton
-          isEnabled={!this.state.isPlayEnabled}
+        <button
+          className = "crowdai_btns btn"
+          disabled={this.state.isPlayEnabled}
           onClick={this.pauseSong}
-        />
+        >
+          <Icon icon={pause} size={this.state.largeIconSize}/>
+        </button>
       )
     }else{
-      return (<PlayButton
-        isEnabled={this.state.isPlayEnabled}
-        onClick={this.playSong}
-              />
-            )
+      return (
+        <button
+          className = "crowdai_btns btn"
+          disabled={!this.state.isPlayEnabled}
+          onClick={this.playSong}
+        >
+          <Icon icon={play} size={this.state.largeIconSize}/>
+        </button>
+      );
     }
 
   }
@@ -175,18 +193,33 @@ class MidiPlayerComponent extends Component {
       return null;
     }
     return (
-
-        <Row className="controlsWrapper" align="middle" justify="center">
-          <Col xs={2} sm={2} md={1} lg={1} xl={1}>
+      <div className="controlsWrapper">
+        <Row align="middle" justify="center">
+          <Col>
             {this.renderPlayPause()}
           </Col>
-          <Col xs={0} sm={7} md={9} lg={9} xl={9}>
+          <Col>
+            <button className="crowdai_btns btn share_button">
+              <Icon icon={heart} size={this.state.largeIconSize} />
+            </button>
+
+          </Col>
+
+        </Row>
+        <Row align="middle" justify="center">
+          <Col xs={0} sm={7} md={7} lg={8} xl={9}>
             {this.renderProgressBar()}
           </Col>
-          <Col xs={10} sm={3} md={2} lg={2} xl={2}>
+          <Col xs={10} sm={3} md={3} lg={2} xl={2}>
             {this.renderTimeMarker()}
           </Col>
+          <Col xs={2} sm={2} md={2} lg={2} xl={1}>
+            <button className="crowdai_btns btn share_button">
+              <Icon icon={copy} />
+            </button>
+          </Col>
         </Row>
+      </div>
     );
   }
 }
