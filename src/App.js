@@ -54,7 +54,7 @@ class App extends Component {
           </Row>
           <Row>
             <Box className="piano" type="row" xs={6} sm={6} md={6} lg={6}>
-              <PianoComponent key_states={this.state} noFloor/>
+              <PianoComponent key_states={this.state} noFloor />
             </Box>
           </Row>
         </Grid>

@@ -74,7 +74,7 @@ class PianoComponent extends React.Component {
     this.renderer.gammaInput = true;
     this.renderer.gammaOutput = true;
     this.renderer.physicallyBasedShading = true;
-    this.renderer.setClearColor (0xffffff, 1);
+    this.renderer.setClearColor (this.props.backgroundColor, 1);
 
 
 
@@ -325,6 +325,7 @@ PianoComponent.defaultProps = {
   key_attack_time: 9.0,
   key_max_rotation: 0.72,
   octave: 2,
-  noFloor: false
+  noFloor: false,
+  backgroundColor: 0xffffff
 }
 export default PianoComponent;
