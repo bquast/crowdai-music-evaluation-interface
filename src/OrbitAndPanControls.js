@@ -36,7 +36,7 @@ class OrbitAndPanControls {
 	this.autoRotate = false;
 	this.autoRotateSpeed = 2.0; // 30 seconds per round when fps is 60
 
-	this.minPolarAngle = 0; // radians
+	this.minPolarAngle = -Math.PI; // radians
 	this.maxPolarAngle = Math.PI; // radians
 
 	this.minDistance = 0;

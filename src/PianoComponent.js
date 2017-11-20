@@ -84,6 +84,8 @@ class PianoComponent extends React.Component {
     this.renderer.setClearColor (this.props.backgroundColor, 1);
 
     // window.THREE = THREE;
+    // var axisHelper = new THREE.AxisHelper( 100 );
+    // this.scene.add( axisHelper );
 
     //document.body.appendChild( this.renderer.domElement );
     document.getElementsByClassName("piano_renderer")[0].appendChild(this.renderer.domElement);
@@ -108,16 +110,17 @@ class PianoComponent extends React.Component {
     var loader = new ColladaLoader();
     loader.load( 'https://raw.githubusercontent.com/spMohanty/3d-piano-player/master/obj/piano.dae', this.prepare_scene );
 
-    this.camera.position.x = 5.393166095234609;
-    this.camera.position.y = 15.469695148974608;
-    this.camera.position.z = 6.768287667583185;
-    this.camera.rotation._x = -1.176568438152118;
-    this.camera.rotation._y = -0.006062672358636812;
-    this.camera.rotation._z = -0.0145724073083656;
-    this.camera.quaternion._x = -0.5548988388078862;
-    this.camera.quaternion._y = -0.006564991102573456;
-    this.camera.quaternion._z = -0.004379122205301783;
-    this.camera.quaternion._w = 0.8318804017827285;
+    this.camera.position.x = 5.545733663570945;
+    this.camera.position.y = 17.43496880968363;
+    this.camera.position.z = 3.947804382819341;
+    this.camera.rotation._x = -1.5247920075821781;
+    this.camera.rotation._y = -0.0005485303441902907;
+    this.camera.rotation._z = -0.011914475959049894;
+    this.camera.quaternion._x = -0.6906427130333965;
+    this.camera.quaternion._y = -0.0043127191736616706;
+    this.camera.quaternion._z = -0.004118729646872374;
+    this.camera.quaternion._w = 0.7231715422037117;
+    this.camera.updateProjectionMatrix();
 
     // this.cameraControls = new OrbitAndPanControls(this.camera, this.renderer.domElement);
     // this.cameraControls.target.set(5.5,-0.8,0);
@@ -147,6 +150,7 @@ class PianoComponent extends React.Component {
 
   update(delta){
       // this.cameraControls.update(delta);
+      window.camera = this.camera;
       for(var i in this.keys_obj)
       {
           this.update_key(this.keys_obj[i], delta);
