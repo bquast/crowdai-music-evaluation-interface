@@ -29,6 +29,8 @@ class MidiPlayerComponent extends Component {
     this.player_playing = this.player_playing.bind(this);
     this.player_midiEvent = this.player_midiEvent.bind(this);
     this.player_endOfFile = this.player_endOfFile.bind(this);
+    this.playSong = this.playSong.bind(this);
+    this.pauseSong = this.pauseSong.bind(this);
 
     this.audio_context = new AudioContext();
     this.instrument = false;
@@ -40,22 +42,21 @@ class MidiPlayerComponent extends Component {
     this.Player.on('playing', this.player_playing);
     this.Player.on('midiEvent', this.player_midiEvent);
     this.Player.on('endOfFile', this.player_endOfFile);
-    window.Player = this.Player;
 
     this.note_states = {}
   }
   player_fileLoaded(){
     console.log("fileLoaded");
-    this.state.status_message = "Playing...";
+    this.state.status_message = "";
     //This is where the UI for Play/Pause etc will be enabled
-    this.Player.play()
+    this.setState({isPlayEnabled: true});
+    // this.Player.play()
   }
   player_playing(currentTick){
     // console.log("Play Remainnig : ", this.Player.getSongTimeRemaining());
     let totalTime = this.Player.getSongTime();
     let currentTime = this.Player.getSongTime() - this.Player.getSongTimeRemaining();
-    this.setState({totalTime: totalTime, currentTime: currentTime});
-    // console.log(this.state);
+    this.setState({totalTime: totalTime, currentTime: currentTime, isPlayEnabled: false, isPauseEnabled: true});
   }
   player_midiEvent(event){
     if(event.name == "Note on"){
@@ -93,10 +94,12 @@ class MidiPlayerComponent extends Component {
   onInstrumentLoaded(){
   }
   playSong(){
-
+    this.Player.play();
   }
   pauseSong(){
-
+    this.Player.pause();
+    this.setState({isPlayEnabled: true, isPauseEnabled: false});
+    this.props.resetKeyBoard();
   }
   onSeekStart(time){
 
@@ -130,8 +133,8 @@ class MidiPlayerComponent extends Component {
   }
   render() {
     return (
-      <div style={{width:"100%"}}>
-        <div style={{width: "5%", float:"left"}}>
+      <div className="controlsWrapper" style={{width:"100%", display:"inline-block"}}>
+        <div style={{width: "5%", float:"left", "text-align":"center"}}>
           {this.renderPlayPause()}
         </div>
         <div style={{width: "85%", float:"left"}}>
@@ -146,14 +149,14 @@ class MidiPlayerComponent extends Component {
             onIntent={time => this.setState(() => ({ lastIntent: time }))}
           />
         </div>
-        <div style={{width: "10%", float:"left"}}>
+        <div style={{width: "10%", float:"left", "text-align":"center"}}>
           <pre>
             <TimeMarker
               totalTime={this.state.totalTime}
               currentTime={this.state.currentTime}
               markerSeparator={"/"}
             />
-            
+
           </pre>
         </div>
         {this.state.status_message}
