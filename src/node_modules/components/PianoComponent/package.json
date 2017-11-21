@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "name": "PianoComponent",
+  "main": "./PianoComponent.js"
+}
