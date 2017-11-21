@@ -114,5 +114,5 @@
     "node-sass": "^4.7.1",
     "style-loader": "^0.19.0"
   },
-  "homepage": "https://s3.amazonaws.com/salathegroup-static/mohanty/crowdai_music_challenge_evaluator"
+  "homepage": "https://github.com/spMohanty/crowdai-music-evaluation-interface"
 }
