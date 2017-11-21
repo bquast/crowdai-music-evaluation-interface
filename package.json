@@ -1,7 +1,7 @@
 {
   "name": "crowdai-music-evaluation-interface",
   "main": "lib/index.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "dependencies": {
     "autoprefixer": "7.1.6",
@@ -114,5 +114,5 @@
     "node-sass": "^4.7.1",
     "style-loader": "^0.19.0"
   },
-  "homepage": "https://github.com/spMohanty/crowdai-music-evaluation-interface"
+  "homepage": "https://github.com/spMohanty/crowdai-music-evaluation-interfacen"
 }
