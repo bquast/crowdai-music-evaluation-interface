@@ -1,5 +1,5 @@
-import React                from 'react'
-import CrowdAIMusicEvaluationInterface        from 'components/CrowdAIMusicEvaluationInterface'
+import React from 'react'
+import CrowdAIMusicEvaluationInterface  from 'components/CrowdAIMusicEvaluationInterface'
 class App extends React.Component {
   render() {
     return (
