@@ -1,5 +1,6 @@
 .CrowdAIMusicEvaluationInterfaceWrapper {
-  padding-top: 20px; }
+  padding-top: 20px;
+  display: block; }
 
 .crowdai_music_challenge_btns {
   transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
